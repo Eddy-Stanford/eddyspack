@@ -1,0 +1,305 @@
+diff --git a/tests/fre-nctools/shared_lib/tst_create_xgrid.c b/tests/fre-nctools/shared_lib/tst_create_xgrid.c
+index 7fd0ae58..0f6b920f 100644
+--- a/tests/fre-nctools/shared_lib/tst_create_xgrid.c
++++ b/tests/fre-nctools/shared_lib/tst_create_xgrid.c
+@@ -4,6 +4,9 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
++#include "mosaic_util.h"
++#include "create_xgrid.h"
++
+ #define D2R (M_PI/180)
+ #define R2D (180/M_PI)
+ #define MAXPOINT 1000
+@@ -29,13 +32,13 @@ int main(int argc, char* argv[])
+         switch (n) {
+         case 1:
+             /****************************************************************
+-
+-       test clip_2dx2d_great_cirle case 1:
+-       box 1: (20,10), (20,12), (22,12), (22,10)
+-       box 2: (21,11), (21,14), (24,14), (24,11)
+-       out  : (21, 12.0018), (22, 12), (22, 11.0033), (21, 11)
+-
+-            ****************************************************************/
++ *
++ *        test clip_2dx2d_great_cirle case 1:
++ *               box 1: (20,10), (20,12), (22,12), (22,10)
++ *                      box 2: (21,11), (21,14), (24,14), (24,11)
++ *                             out  : (21, 12.0018), (22, 12), (22, 11.0033), (21, 11)
++ *
++ *                                         ****************************************************************/
+             n1_in = 4; n2_in = 4;
+             /* first a simple lat-lon grid box to clip another lat-lon grid box */
+             lon1_in[0] = 20; lat1_in[0] = 10;
+@@ -50,13 +53,13 @@ int main(int argc, char* argv[])
+ 
+         case 2:
+             /****************************************************************
+-
+-        test clip_2dx2d_great_cirle case 2: two identical box
+-        box 1: (20,10), (20,12), (22,12), (22,10)
+-        box 2: (20,10), (20,12), (22,12), (22,10)
+-        out  : (20,10), (20,12), (22,12), (22,10)
+-
+-            ****************************************************************/
++ *
++ *         test clip_2dx2d_great_cirle case 2: two identical box
++ *                 box 1: (20,10), (20,12), (22,12), (22,10)
++ *                         box 2: (20,10), (20,12), (22,12), (22,10)
++ *                                 out  : (20,10), (20,12), (22,12), (22,10)
++ *
++ *                                             ****************************************************************/
+             lon1_in[0] = 20; lat1_in[0] = 10;
+             lon1_in[1] = 20; lat1_in[1] = 12;
+             lon1_in[2] = 22; lat1_in[2] = 12;
+@@ -70,13 +73,13 @@ int main(int argc, char* argv[])
+ 
+         case 3:
+             /****************************************************************
+-
+-       test clip_2dx2d_great_cirle case 3: one cubic sphere grid close to the pole with lat-lon grid.
+-       box 1: (251.7, 88.98), (148.3, 88.98), (57.81, 88.72), (342.2, 88.72)
+-       box 2: (150, 88), (150, 90), (152.5, 90), (152.5, 88)
+-       out  : (152.5, 89.0642), (150, 89.0165), (0, 90)
+-
+-            ****************************************************************/
++ *
++ *        test clip_2dx2d_great_cirle case 3: one cubic sphere grid close to the pole with lat-lon grid.
++ *               box 1: (251.7, 88.98), (148.3, 88.98), (57.81, 88.72), (342.2, 88.72)
++ *                      box 2: (150, 88), (150, 90), (152.5, 90), (152.5, 88)
++ *                             out  : (152.5, 89.0642), (150, 89.0165), (0, 90)
++ *
++ *                                         ****************************************************************/
+             n1_in = 4; n2_in = 4;
+             /* first a simple lat-lon grid box to clip another lat-lon grid box */
+             lon1_in[0] = 251.7; lat1_in[0] = 88.98;
+@@ -89,22 +92,22 @@ int main(int argc, char* argv[])
+             lon2_in[2] = 152.5; lat2_in[2] = 90;
+             lon2_in[3] = 152.5; lat2_in[3] = 88;
+             /*
+-              for(i=0; i<4; i++) {
+-              lon2_in[i] = lon1_in[i];
+-              lat2_in[i] = lat1_in[i];
+-              }
+-            */
++ *               for(i=0; i<4; i++) {
++ *                             lon2_in[i] = lon1_in[i];
++ *                                           lat2_in[i] = lat1_in[i];
++ *                                                         }
++ *                                                                     */
+             break;
+ 
+         case 4:
+             /****************************************************************
+-
+-       test clip_2dx2d_great_cirle case 4: One box contains the pole
+-       box 1: (-160, 88.5354), (152.011, 87.8123) , (102.985, 88.4008), (20, 89.8047)
+-       box 2: (145,88), (145,90), (150,90), (150,88)
+-       out  : (145.916, 88.0011), (145, 88.0249), (0, 90), (150, 88)
+-
+-            ****************************************************************/
++ *
++ *        test clip_2dx2d_great_cirle case 4: One box contains the pole
++ *               box 1: (-160, 88.5354), (152.011, 87.8123) , (102.985, 88.4008), (20, 89.8047)
++ *                      box 2: (145,88), (145,90), (150,90), (150,88)
++ *                             out  : (145.916, 88.0011), (145, 88.0249), (0, 90), (150, 88)
++ *
++ *                                         ****************************************************************/
+             n1_in = 4; n2_in = 4;
+             /* first a simple lat-lon grid box to clip another lat-lon grid box */
+ 
+@@ -121,13 +124,13 @@ int main(int argc, char* argv[])
+ 
+         case 5:
+             /****************************************************************
+-
+-       test clip_2dx2d_great_cirle case 5: One tripolar grid around the pole with lat-lon grid.
+-       box 1: (-202.6, 87.95), (-280, 89.56), (-100, 90), (-190, 88)
+-       box 2: (21,11), (21,14), (24,14), (24,11)
+-       out  : (150, 88.7006), (145,  88.9507), (0, 90)
+-
+-            ****************************************************************/
++ *
++ *        test clip_2dx2d_great_cirle case 5: One tripolar grid around the pole with lat-lon grid.
++ *               box 1: (-202.6, 87.95), (-280, 89.56), (-100, 90), (-190, 88)
++ *                      box 2: (21,11), (21,14), (24,14), (24,11)
++ *                             out  : (150, 88.7006), (145,  88.9507), (0, 90)
++ *
++ *                                         ****************************************************************/
+             n1_in = 4; n2_in = 4;
+             /* first a simple lat-lon grid box to clip another lat-lon grid box */
+ 
+@@ -144,15 +147,15 @@ int main(int argc, char* argv[])
+ 
+         case 6:
+             /****************************************************************
+-
+-       test clip_2dx2d_great_cirle case 6: One cubic sphere grid arounc the pole with one tripolar grid box
+-                                       around the pole.
+-       box 1: (-160, 88.5354), (152.011, 87.8123) , (102.985, 88.4008), (20, 89.8047)
+-       box 2: (-202.6, 87.95), (-280, 89.56), (-100, 90), (-190, 88)
+-       out  : (170, 88.309), (157.082, 88.0005), (83.714, 89.559), (80, 89.6094), (0, 90), (200, 88.5354)
+-
+-
+-            ****************************************************************/
++ *
++ *        test clip_2dx2d_great_cirle case 6: One cubic sphere grid arounc the pole with one tripolar grid box
++ *                                               around the pole.
++ *                                                      box 1: (-160, 88.5354), (152.011, 87.8123) , (102.985, 88.4008), (20, 89.8047)
++ *                                                             box 2: (-202.6, 87.95), (-280, 89.56), (-100, 90), (-190, 88)
++ *                                                                    out  : (170, 88.309), (157.082, 88.0005), (83.714, 89.559), (80, 89.6094), (0, 90), (200, 88.5354)
++ *
++ *
++ *                                                                                ****************************************************************/
+             n1_in = 4; n2_in = 4;
+             /* first a simple lat-lon grid box to clip another lat-lon grid box */
+ 
+@@ -169,13 +172,13 @@ int main(int argc, char* argv[])
+ 
+         case 7:
+             /****************************************************************
+-
+-       test clip_2dx2d_great_cirle case 7: One small grid box inside a big grid box.
+-       box 1: (20,10), (20,12), (22,12), (22,10)
+-       box 2: (18,8), (18,14), (24,14), (24,8)
+-       out  : (20,10), (20,12), (22,12), (22,10)
+-
+-            ****************************************************************/
++ *
++ *        test clip_2dx2d_great_cirle case 7: One small grid box inside a big grid box.
++ *               box 1: (20,10), (20,12), (22,12), (22,10)
++ *                      box 2: (18,8), (18,14), (24,14), (24,8)
++ *                             out  : (20,10), (20,12), (22,12), (22,10)
++ *
++ *                                         ****************************************************************/
+             n1_in = 4; n2_in = 4;
+             /* first a simple lat-lon grid box to clip another lat-lon grid box */
+             lon1_in[0] = 20; lat1_in[0] = 10;
+@@ -190,17 +193,17 @@ int main(int argc, char* argv[])
+ 
+         case 8:
+             /****************************************************************
+-
+-       test clip_2dx2d_great_cirle case 8: Cubic sphere grid at tile = 1, point (i=25,j=1)
+-          with N45 at (i=141,j=23)
+-       box 1:
+-       box 2:
+-       out  : None
+-
+-            ****************************************************************/
++ *
++ *        test clip_2dx2d_great_cirle case 8: Cubic sphere grid at tile = 1, point (i=25,j=1)
++ *                  with N45 at (i=141,j=23)
++ *                         box 1:
++ *                                box 2:
++ *                                       out  : None
++ *
++ *                                                   ****************************************************************/
+             n1_in = 4; n2_in = 4;
+             /* first a simple lat-lo
+-               n grid box to clip another lat-lon grid box */
++ *                n grid box to clip another lat-lon grid box */
+             lon1_in[0] = 350.0; lat1_in[0] = -45;
+             lon1_in[1] = 350.0; lat1_in[1] = -43.43;
+             lon1_in[2] = 352.1; lat1_in[2] = -43.41;
+@@ -213,14 +216,14 @@ int main(int argc, char* argv[])
+ 
+         case 9:
+             /****************************************************************
+-
+-       test clip_2dx2d_great_cirle case 9: Cubic sphere grid at tile = 1, point (i=1,j=1)
+-          with N45 at (i=51,j=61)
+-       box 1:
+-       box 2:
+-       out  : None
+-
+-            ****************************************************************/
++ *
++ *        test clip_2dx2d_great_cirle case 9: Cubic sphere grid at tile = 1, point (i=1,j=1)
++ *                  with N45 at (i=51,j=61)
++ *                         box 1:
++ *                                box 2:
++ *                                       out  : None
++ *
++ *                                                   ****************************************************************/
+             n1_in = 4; n2_in = 4;
+ 
+             lon1_in[0] = 305.0; lat1_in[0] = -35.26;
+@@ -235,14 +238,14 @@ int main(int argc, char* argv[])
+ 
+         case 10:
+             /****************************************************************
+-
+-       test clip_2dx2d_great_cirle case 10: Cubic sphere grid at tile = 3, point (i=24,j=1)
+-          with N45 at (i=51,j=46)
+-       box 1:
+-       box 2:
+-       out  : None
+-
+-            ****************************************************************/
++ *
++ *        test clip_2dx2d_great_cirle case 10: Cubic sphere grid at tile = 3, point (i=24,j=1)
++ *                  with N45 at (i=51,j=46)
++ *                         box 1:
++ *                                box 2:
++ *                                       out  : None
++ *
++ *                                                   ****************************************************************/
+             n1_in = 4; n2_in = 4;
+ 
+             lon1_in[0] = 125.0; lat1_in[0] = 1.46935;
+@@ -257,14 +260,14 @@ int main(int argc, char* argv[])
+ 
+         case 11:
+             /****************************************************************
+-
+-       test clip_2dx2d_great_cirle case 10: Cubic sphere grid at tile = 3, point (i=24,j=1)
+-          with N45 at (i=51,j=46)
+-       box 1:
+-       box 2:
+-       out  :
+-
+-            ****************************************************************/
++ *
++ *        test clip_2dx2d_great_cirle case 10: Cubic sphere grid at tile = 3, point (i=24,j=1)
++ *                  with N45 at (i=51,j=46)
++ *                         box 1:
++ *                                box 2:
++ *                                       out  :
++ *
++ *                                                   ****************************************************************/
+             nlon1 = 1;
+             nlat1 = 1;
+             nlon2 = 1;
+@@ -358,13 +361,13 @@ int main(int argc, char* argv[])
+ 
+         case 12:
+             /****************************************************************
+-
+-       test : create_xgrid_great_circle
+-       box 1: (20,10), (20,12), (22,12), (22,10)
+-       box 2: (21,11), (21,14), (24,14), (24,11)
+-       out  : (21, 12.0018), (22, 12), (22, 11.0033), (21, 11)
+-
+-            ****************************************************************/
++ *
++ *        test : create_xgrid_great_circle
++ *               box 1: (20,10), (20,12), (22,12), (22,10)
++ *                      box 2: (21,11), (21,14), (24,14), (24,11)
++ *                             out  : (21, 12.0018), (22, 12), (22, 11.0033), (21, 11)
++ *
++ *                                         ****************************************************************/
+             nlon1 = 2;
+             nlat1 = 2;
+             nlon2 = 3;
+@@ -495,7 +498,7 @@ int main(int argc, char* argv[])
+                 }
+ 
+                 area1 = (double *)malloc((nlon1)*(nlat1)*sizeof(double));
+-                get_grid_great_circle_area_(&nlon1, &nlat1, lon1_in, lat1_in, area1);
++                get_grid_great_circle_area(&nlon1, &nlat1, lon1_in, lat1_in, area1);
+ 
+                 printf("xgrid area sum is %g, grid 1 area is %g\n", area_sum, area1[0]);
+             }

@@ -1,0 +1,12 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 4278cc9f..f264b29f 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -102,6 +102,7 @@ find_package(nemsio 2.5.0 REQUIRED)
+ find_package(sigio 2.3.0 REQUIRED)
+ find_package(sp 2.3.3 REQUIRED)
+ find_package(ip 3.3.3 REQUIRED)
++find_package(g2c REQUIRED)
+ find_package(g2 3.4.3 REQUIRED)
+ find_package(sigio 2.3.0 REQUIRED)
+ 
