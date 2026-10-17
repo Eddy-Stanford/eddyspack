@@ -14,6 +14,7 @@ class Mima(CMakePackage):
     """
 
     homepage = "https://eddy-stanford.github.io/MiMA/"
+    url = "https://github.com/Eddy-Stanford/MiMA/archive/refs/tags/v2.0.0.tar.gz"
     git = "https://github.com/Eddy-Stanford/MiMA.git"
 
     maintainers("OneOneFour")
@@ -22,16 +23,13 @@ class Mima(CMakePackage):
     version("develop", branch="main")
     # Uncomment once v2.0.0 is tagged and pushed (fill in its full 40-character commit).
     # Until then, build the v2 branch with: spack install mima@git.v2=2.0.0
-    # version("2.0.0", tag="v2.0.0", commit="<full commit of v2.0.0>")
-    version("1.2.5", tag="v1.2.5", commit="8a4da0da877b699203a8532b39f8f937958b76e7")
-    version("1.2.4", tag="v1.2.4", commit="bf454f4dd5ef778ad3ee12bf78a3a5792f2767ad")
-    version("1.2.3", tag="v1.2.3", commit="08538c26eb91b6f28db6e2d7c231fee963e43129")
-    version("1.2.2", tag="v1.2.2", commit="ca884bec3f66410c8896a1ffc09321f4440caa93")
-    version("1.2.1", tag="v1.2.1", commit="631b12c4560620bd2b3c1026c4eac36c26d51ebf")
-    version("1.2", tag="v1.2", commit="9c79934187fcfdaa55b671acf515a8d1a655a6b2")
-    version("1.1", tag="v1.1", commit="27739db42059ad7a6646dbd4a1df1805798e7218")
-    version("1.0", tag="v1.0", commit="6b40f7569aed7d4bbd134b8e9cb53214570a1ddc")
-
+    version("2.0.0", sha256="1bb10d8119570282a8bcdf9aa96bf4036667c5a88cb7bc0e5a35f81d09db9d5e")
+    version("1.2.5", sha256="8ad711041aff617b32a56237f8cfb8295aa77cd4cf32af0586a371f9ee0818e4")
+    version("1.2.4", sha256="d4c3b8ecc47825676493c247f5ebf5d9dd77920ad8b17922fa8fe9f8b989e77f")
+    version("1.2.3", sha256="07f3342ff32641ed0cc81373c4f129e85093d9a80a936ee635c76ac743d3bc9a")
+    version("1.2.2", sha256="0d815f89ff811550d8c535b94410eac173fb008c43b6e4adffde9e887e4ddf57")
+    version("1.2.1", sha256="bbad00d5e936cc614df67c62c5198c49a02cdb188578e99f03a6c632f612b58c")
+    version("1.2", sha256="8634e1df1e100689a86a0f39a70b61038d62611d226723f0fa5a36652ee22082")
     variant(
         "combine", default=False, description="Build mppnccombine?", when="@1.2.1:1.2.5"
     )
