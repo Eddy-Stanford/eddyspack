@@ -21,9 +21,7 @@ class Mima(CMakePackage):
     license("GPL-3.0-only", checked_by="OneOneFour")
 
     version("develop", branch="main")
-    # Uncomment once v2.0.0 is tagged and pushed (fill in its full 40-character commit).
-    # Until then, build the v2 branch with: spack install mima@git.v2=2.0.0
-    version("2.0.0", sha256="1bb10d8119570282a8bcdf9aa96bf4036667c5a88cb7bc0e5a35f81d09db9d5e")
+    version("2.0.0", sha256="d0999839d0859c30c0e8b517972e36f398251aa23283d27a5df34ef8dbaf17dc")
     version("1.2.5", sha256="8ad711041aff617b32a56237f8cfb8295aa77cd4cf32af0586a371f9ee0818e4")
     version("1.2.4", sha256="d4c3b8ecc47825676493c247f5ebf5d9dd77920ad8b17922fa8fe9f8b989e77f")
     version("1.2.3", sha256="07f3342ff32641ed0cc81373c4f129e85093d9a80a936ee635c76ac743d3bc9a")
